@@ -1,6 +1,10 @@
 import os
+import sys
 import logging
 import yaml
+
+from PySide2.QtWidgets import QMainWindow, QApplication
+from PySide2.QtUiTools import QUiLoader
 # import maya.cmds as cmds
 
 logger = logging.getLogger('anim-space-switcher')
@@ -10,18 +14,21 @@ stream.setFormatter(formatter)
 logger.addHandler(stream)
 logger.setLevel(logging.INFO)
 
-class anim_space_switcher(object):
+current_dir = os.path.dirname(__file__)
+
+class anim_space_switcher(QMainWindow):
 
     def __init__(self):
         """Constructor for Anim Space Swicher class"""
+        super(anim_space_switcher, self).__init__()
         self.attribute_names = []
         self.read_config()
+        self.load_ui()
         logger.info(self.attribute_names[0])
 
     def read_config(self):
         """Read config file to get attibute names"""
         try:
-            current_dir = os.path.dirname(__file__)
 
             config_file_path = os.path.join(current_dir, 'config', 'settings.yml')
 
@@ -32,4 +39,15 @@ class anim_space_switcher(object):
         except Exception as e:
             logger.error(e)
 
-x = anim_space_switcher()
+    def load_ui(self):
+        ui_file_path = os.path.join(current_dir, 'ui', 'main.ui')
+        loader = QUiLoader()
+        window = loader.load(ui_file_path, self)
+        window.show()
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+
+    x = anim_space_switcher()
+    app.exec_()
