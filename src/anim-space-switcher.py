@@ -9,7 +9,7 @@ from PySide2.QtUiTools import QUiLoader
 
 logger = logging.getLogger('anim-space-switcher')
 stream = logging.StreamHandler()
-formatter    = logging.Formatter('%(asctime)s : %(levelname)s : %(name)s : %(message)s')
+formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(name)s : %(message)s')
 stream.setFormatter(formatter)
 logger.addHandler(stream)
 logger.setLevel(logging.INFO)
@@ -48,6 +48,5 @@ class anim_space_switcher(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-
     x = anim_space_switcher()
     app.exec_()
